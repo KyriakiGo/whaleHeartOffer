@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bluewhale heart</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar-nft.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+  <!-- AR Scene -->
+  <a-scene embedded arjs="sourceType: gps; debugUIEnabled: false;">
+
+    <!-- Define GPS-based entity with 3D model -->
+    <a-entity gps-entity-place="latitude: 37.981289; longitude: 23.756918" scale="5 5 5"> 
+      <!-- Load the 3D Model -->
+      <a-asset-item id="model" src="./whale_heart.glb"></a-asset-item>
+      <a-entity gltf-model="#model" scale="1 1 1"></a-entity>
+      
+      <!-- Sound element -->
+      <a-sound src="./blue.mp3" autoplay="true" loop="true"></a-sound>
+    </a-entity>
+
+    <!-- Camera -->
+    <a-camera gps-camera rotation-reader></a-camera>
+  </a-scene>
+</body>
+</html>
