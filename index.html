@@ -10,36 +10,26 @@
 </head>
 <body style="margin: 0; overflow: hidden;">
 
-  <!-- Start Audio Button -->
-  <button onclick="startAudio()" style="position: absolute; top: 10px; left: 10px; z-index: 100;">Start AR Audio</button>
-
   <!-- AR Scene -->
   <div class="arjs-loader">
     <img id="totem" src="./assets/totem_small_green.png" alt="">
   </div>
 
   <a-scene embedded arjs="sourceType: gps; debugUIEnabled: false;">
-
-    <!-- Define GPS-based entity with 3D model -->
+    <!-- Define GPS-based entity with initially hidden 3D model -->
     <a-entity gps-entity-place="latitude: 37.981289; longitude: 23.756918" scale="5 5 5">
-      <!-- Load the 3D Model -->
-      <a-asset-item id="model" src="./assets/whale_heart.glb"></a-asset-item>
-      <a-entity gltf-model="#model" scale="1 1 1"></a-entity>
       
-      <!-- Sound element -->
+      <!-- 3D Model initially hidden -->
+      <a-asset-item id="model" src="./assets/whale_heart.glb"></a-asset-item>
+      <a-entity id="modelEntity" gltf-model="#model" scale="1 1 1" visible="false"></a-entity>
+      
+      <!-- Sound element, initially silent -->
       <a-sound id="ambientSound" src="./assets/blue.mp3" autoplay="false" loop="true"></a-sound>
     </a-entity>
 
     <!-- Camera -->
     <a-camera gps-camera rotation-reader></a-camera>
   </a-scene>
-
-  <script>
-    function startAudio() {
-      const soundEl = document.querySelector('#ambientSound');
-      soundEl.components.sound.playSound();
-    }
-  </script>
 
 </body>
 </html>
