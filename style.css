@@ -1,18 +1,14 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Set event listener for the first tap or click
-  document.addEventListener('click', startModelDisplay, { once: true });
-});
+/* Optional styling for loader */
+.arjs-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-function startModelDisplay() {
-  // Display the 3D model in AR after the first user interaction
-  const modelEntity = document.querySelector('#modelEntity');
-  if (modelEntity) {
-    modelEntity.setAttribute('visible', 'true'); // Show the 3D model
-  }
-  
-  // Optional: Start sound if available
-  const soundEl = document.querySelector('#ambientSound');
-  if (soundEl && soundEl.components.sound) {
-    soundEl.components.sound.playSound();
-  }
+/* Loader image styling */
+.arjs-loader img {
+  position: fixed;
+  width: 60%;
+  top: 25%;
+  left: 20%;
 }
