@@ -14,9 +14,9 @@
       id="modelEntity"
       gltf-model="./assets/whale_heart.glb" 
       position="0 0 -3" 
-      scale="3 3 3" 
+      scale="2 2 2" 
       rotation="0 0 0"
-      animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+      animation="property: rotation; to: 0 360 0; loop: true; dur: 7000">
     </a-entity>
 
     <!-- Sound -->
@@ -53,7 +53,7 @@
       if (currentAnimation) {
         model.removeAttribute('animation');
       } else {
-        model.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 10000');
+        model.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 7000');
       }
     });
   </script>
