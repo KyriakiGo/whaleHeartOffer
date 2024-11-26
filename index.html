@@ -2,41 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Interactive AR.js</title>
+  <title>Interactive AR.js with Zoom and Rotate</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras/dist/aframe-extras.controls.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+  <a-scene embedded>
     <!-- 3D Model -->
     <a-entity 
       id="modelEntity"
       gltf-model="./assets/whale_heart.glb" 
-      position="0 0 -5" 
-      scale="1 1 1" 
+      position="0 1 -5" 
+      scale="3 3 3" 
       rotation="0 0 0"
       animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
     </a-entity>
 
-    <!-- Sound -->
-    <a-sound 
-      id="ambientSound" 
-      src="./assets/blue.mp3" 
-      loop="true" 
-      position="0 1 -5">
-    </a-sound>
-
-    <!-- Camera with Orbit Controls -->
-    <a-camera 
-      position="0 0 0"
-      orbit-controls="target: #modelEntity; enableDamping: true; dampingFactor: 0.1; rotateSpeed: 0.3; zoomSpeed: 0.5; minDistance: 2; maxDistance: 10;"
-      look-controls="enabled: false">
-    </a-camera>
+    <!-- Independent Orbit Camera -->
+    <a-entity 
+      camera
+      orbit-controls="target: #modelEntity; enableDamping: true; dampingFactor: 0.2; rotateSpeed: 0.5; zoomSpeed: 0.5;"
+      position="0 1 0">
+    </a-entity>
   </a-scene>
 
   <script>
-    // Ensure sound plays after user interaction
+    // Play sound after user interaction
     document.addEventListener('click', () => {
       const soundEl = document.querySelector('#ambientSound');
       if (soundEl && soundEl.components.sound) {
