@@ -2,90 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Interactive AR in the hood.js</title>
+  <title>Interactive AR.js</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras/dist/aframe-extras.controls.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <!-- 3D Model -->
+    <a-entity 
+      id="modelEntity"
+      gltf-model="./assets/whale_heart.glb" 
+      position="0 0 -5" 
+      scale="1 1 1" 
+      rotation="0 0 0"
+      animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+    </a-entity>
 
-  <div id="arSceneContainer" style="display: none;">
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <!-- 3D Model -->
-      <a-entity 
-        id="modelEntity"
-        gltf-model="./assets/whale_heart.glb" 
-        position="0 0 -5" 
-        scale="1 1 1" 
-        rotation="0 0 0"
-        animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
-      </a-entity>
+    <!-- Sound -->
+    <a-sound 
+      id="ambientSound" 
+      src="./assets/blue.mp3" 
+      loop="true" 
+      position="0 1 -5">
+    </a-sound>
 
-      <!-- Sound -->
-      <a-sound 
-        id="ambientSound" 
-        src="./assets/blue.mp3" 
-        loop="true" 
-        position="0 1 -5">
-      </a-sound>
-
-      <!-- Camera with Orbit Controls -->
-      <a-camera 
-        position="0 0 0"
-        orbit-controls="target: #modelEntity; enableDamping: true; dampingFactor: 0.1; rotateSpeed: 0.3; zoomSpeed: 0.5; minDistance: 2; maxDistance: 10;"
-        look-controls="enabled: false">
-      </a-camera>
-    </a-scene>
-  </div>
+    <!-- Camera with Orbit Controls -->
+    <a-camera 
+      position="0 0 0"
+      orbit-controls="target: #modelEntity; enableDamping: true; dampingFactor: 0.1; rotateSpeed: 0.3; zoomSpeed: 0.5; minDistance: 2; maxDistance: 10;"
+      look-controls="enabled: false">
+    </a-camera>
+  </a-scene>
 
   <script>
-    // Define the target coordinates
-    const targetLatitude = 38.0306; // Replace with desired latitude 
-    const targetLongitude = -23.8221; // Replace with desired longitude
-    const radiusInMeters = 50; // Define the radius for the target area
-
-    // Function to calculate distance between two coordinates
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371e3; // Earth radius in meters
-      const toRadians = (angle) => (angle * Math.PI) / 180;
-      const dLat = toRadians(lat2 - lat1);
-      const dLon = toRadians(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(toRadians(lat1)) *
-          Math.cos(toRadians(lat2)) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    // Check user's location
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const userLatitude = position.coords.latitude;
-        const userLongitude = position.coords.longitude;
-
-        const distance = calculateDistance(
-          userLatitude,
-          userLongitude,
-          targetLatitude,
-          targetLongitude
-        );
-
-        if (distance <= radiusInMeters) {
-          // Show AR scene if within the target area
-          document.getElementById("arSceneContainer").style.display = "block";
-
-          // Start sound on user interaction
-          document.addEventListener(
-            "click",
-            () => {
-              const soundEl = document.querySelector("#ambientSound");
-              if (soundEl && soundEl.components.sound) {
-                soundEl.components.sound.playSound();
-              }
-            },
-            { once: true }
-          );
-    
+    // Ensure sound plays after user interaction
+    document.addEventListener('click', () => {
+      const soundEl = document.querySelector('#ambientSound');
+      if (soundEl && soundEl.components.sound) {
+        soundEl.components.sound.playSound();
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>
