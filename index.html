@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lionfish AR</title>
+
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<style>
+body{
+margin:0;
+background:black;
+overflow:hidden;
+}
+
+model-viewer{
+width:100vw;
+height:100vh;
+}
+</style>
+</head>
+
+<body>
+
+<model-viewer
+src="./assets/Lionfish.glb"
+ios-src="./assets/Lionfish.usdz"
+ar
+ar-modes="webxr scene-viewer quick-look"
+camera-controls
+auto-rotate="false"
+shadow-intensity="1"
+environment-image="neutral"
+exposure="1"
+scale="1 1 1"
+camera-orbit="0deg 75deg 3m"
+field-of-view="30deg">
+
+</model-viewer>
+
+</body>
+</html>
